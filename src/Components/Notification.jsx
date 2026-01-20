@@ -52,7 +52,7 @@ export default function Notification() {
         )}
       </button>
       {isopen && (
-        <div className="absolute right-0 mt-2 bg-gray-900 text-white border border-blue-900 rounded-2xl shadow-lg w-60 z-50">
+        <div className="absolute right-0 md:right-0 md:mt-2 mt-2 bg-gray-900 text-white border border-blue-900 rounded-2xl shadow-lg w-60 z-50 md:translate-x-0 -translate-x-1/2 left-1/2 md:left-auto">
           {pending.length === 0 ? (
             <p className="p-2 m-0">No notifications</p>
           ) : (

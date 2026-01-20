@@ -81,31 +81,31 @@ export default function Profile({ completedtasksdata = [] }) {
 
   // Country flag emoji (simplified)
   const getCountryFlag = (country) => {
-const flags = { 
-  "India": "🇮🇳",
-  "Russia": "🇷🇺", 
-  "USA": "🇺🇸", 
-  "UK": "🇬🇧", 
-  "Canada": "🇨🇦", 
-  "Australia": "🇦🇺", 
-  "Germany": "🇩🇪", 
-  "France": "🇫🇷", 
-  "Japan": "🇯🇵", 
-  "China": "🇨🇳", 
-  "Brazil": "🇧🇷", 
-  "Italy": "🇮🇹", 
-  "Spain": "🇪🇸", 
-  "South Korea": "🇰🇷", 
-  "South Africa": "🇿🇦", 
-  "Mexico": "🇲🇽", 
-  "Argentina": "🇦🇷", 
-  "Turkey": "🇹🇷", 
-  "Indonesia": "🇮🇩", 
-  "Bhutan": "🇧🇹", 
-  "Nepal": "🇳🇵", 
-  "Singapore": "🇸🇬", 
-  "UAE": "🇦🇪" 
-  };
+    const flags = {
+      "India": "🇮🇳",
+      "Russia": "🇷🇺",
+      "USA": "🇺🇸",
+      "UK": "🇬🇧",
+      "Canada": "🇨🇦",
+      "Australia": "🇦🇺",
+      "Germany": "🇩🇪",
+      "France": "🇫🇷",
+      "Japan": "🇯🇵",
+      "China": "🇨🇳",
+      "Brazil": "🇧🇷",
+      "Italy": "🇮🇹",
+      "Spain": "🇪🇸",
+      "South Korea": "🇰🇷",
+      "South Africa": "🇿🇦",
+      "Mexico": "🇲🇽",
+      "Argentina": "🇦🇷",
+      "Turkey": "🇹🇷",
+      "Indonesia": "🇮🇩",
+      "Bhutan": "🇧🇹",
+      "Nepal": "🇳🇵",
+      "Singapore": "🇸🇬",
+      "UAE": "🇦🇪"
+    };
     return flags[country] || "🌍";
   };
 
@@ -430,6 +430,7 @@ const flags = {
                   onChange={handlechange}
                 >
                   <option value="India" className="bg-gray-800">🇮🇳 India</option>
+                  <option value="Russia" className="bg-gray-800">🇷🇺 Russia</option>
                   <option value="USA" className="bg-gray-800">🇺🇸 USA</option>
                   <option value="UK" className="bg-gray-800">🇬🇧 UK</option>
                   <option value="Canada" className="bg-gray-800">🇨🇦 Canada</option>
@@ -439,6 +440,18 @@ const flags = {
                   <option value="Japan" className="bg-gray-800">🇯🇵 Japan</option>
                   <option value="China" className="bg-gray-800">🇨🇳 China</option>
                   <option value="Brazil" className="bg-gray-800">🇧🇷 Brazil</option>
+                  <option value="Italy" className="bg-gray-800">🇮🇹 Italy</option>
+                  <option value="Spain" className="bg-gray-800">🇪🇸 Spain</option>
+                  <option value="South Korea" className="bg-gray-800">🇰🇷 South Korea</option>
+                  <option value="South Africa" className="bg-gray-800">🇿🇦 South Africa</option>
+                  <option value="Mexico" className="bg-gray-800">🇲🇽 Mexico</option>
+                  <option value="Argentina" className="bg-gray-800">🇦🇷 Argentina</option>
+                  <option value="Turkey" className="bg-gray-800">🇹🇷 Turkey</option>
+                  <option value="Indonesia" className="bg-gray-800">🇮🇩 Indonesia</option>
+                  <option value="Bhutan" className="bg-gray-800">🇧🇹 Bhutan</option>
+                  <option value="Nepal" className="bg-gray-800">🇳🇵 Nepal</option>
+                  <option value="Singapore" className="bg-gray-800">🇸🇬 Singapore</option>
+                  <option value="UAE" className="bg-gray-800">🇦🇪 UAE</option>
                 </select>
               </div>
 
