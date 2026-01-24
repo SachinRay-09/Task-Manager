@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Notification() {
+export default function Notification({ task }) {
   function calculateDaysLeft(dueDateStr) {
     const dueDate = new Date(dueDateStr);
     const today = new Date();
@@ -10,8 +10,12 @@ export default function Notification() {
     const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
     return diffDays;
   }
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  const progresstasks = JSON.parse(localStorage.getItem("progresstasks")) || [];
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  let progresstasks = JSON.parse(localStorage.getItem("progresstasks")) || [];
+  useEffect(() => {
+    tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    progresstasks = JSON.parse(localStorage.getItem("progresstasks")) || [];
+  }, [task]);
   const pendingtasks = tasks.map((task) => {
     if (calculateDaysLeft(task.date) <= 3) return [task.title, task.date];
     else {
@@ -24,8 +28,11 @@ export default function Notification() {
       return false;
     }
   });
-  const pending = [...pendingtasks, ...pendingprogresstask].filter(Boolean);
+  let pending = [...pendingtasks, ...pendingprogresstask].filter(Boolean);
 
+  useEffect(() => {
+    pending = [...pendingtasks, ...pendingprogresstask].filter(Boolean);
+  }, [tasks, progresstasks]);
 
   const [isopen, setIsOpen] = useState(false);
 

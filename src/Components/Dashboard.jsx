@@ -3,7 +3,7 @@ import AddTask from "./Taskform";
 import TaskCard from "./TaskCard";
 import InProgressTask from "./inprogress";
 
-export default function Dashboard({ setCompletedTasksData }) {
+export default function Dashboard({ setCompletedTasksData, setTask }) {
   const [progressTaskid, setProgressTaskId] = useState(null);
 
   const [editingTask, setEditingTask] = useState(null);
@@ -61,10 +61,12 @@ export default function Dashboard({ setCompletedTasksData }) {
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    setTask(tasks);
   }, [tasks]);
 
   useEffect(() => {
     localStorage.setItem("progresstasks", JSON.stringify(progresstasks));
+    setTask(progresstasks);
   }, [progresstasks]);
 
   const addTask = (task) => {

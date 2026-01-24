@@ -40,9 +40,8 @@ function ThemeToggle() {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ task }) {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className="sticky top-0 border-b bg-gray-900 border-gray-700 shadow-sm hover:bg-gray-800 rounded-md pl-3 py-2 transition-colors duration-200 z-40">
       <header className="p-4 pr-10 flex flex-row justify-between items-center">
@@ -79,7 +78,7 @@ export default function Navbar() {
           </Link>
         </nav>
         <div className="hidden md:flex absolute right-32 mt-2">
-          <Notification />
+          <Notification task={task} />
         </div>
         {/* Theme toggle (decorative only) */}
         <div className="hidden md:flex items-center ml-2">
@@ -148,7 +147,7 @@ export default function Navbar() {
 
           {/* Mobile Notification */}
           <div className="flex items-center justify-center pt-2">
-            <Notification />
+            <Notification task={task} />
           </div>
 
           {/* Mobile Theme Toggle (decorative only) */}

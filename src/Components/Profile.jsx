@@ -8,6 +8,8 @@ export default function Profile({ completedtasksdata = [] }) {
     country: "India",
   });
 
+  completedtasksdata = JSON.parse(localStorage.getItem("completedtasks")) || [];
+
   const [userdata, setUserData] = useState(() => {
     const raw = localStorage.getItem("userdata");
     return raw ? JSON.parse(raw) : {};
@@ -64,17 +66,47 @@ export default function Profile({ completedtasksdata = [] }) {
 
   // Achievement calculations
   const totalCompleted = completedtasksdata.length;
-  const easyCompleted = completedtasksdata.filter(task => task.difficulty === 'easy').length;
-  const mediumCompleted = completedtasksdata.filter(task => task.difficulty === 'medium').length;
-  const hardCompleted = completedtasksdata.filter(task => task.difficulty === 'hard').length;
-  
+  const easyCompleted = completedtasksdata.filter(
+    (task) => task.difficulty === "easy",
+  ).length;
+  const mediumCompleted = completedtasksdata.filter(
+    (task) => task.difficulty === "medium",
+  ).length;
+  const hardCompleted = completedtasksdata.filter(
+    (task) => task.difficulty === "hard",
+  ).length;
+
   // Achievement level based on completed tasks
   const getAchievementLevel = (count) => {
-    if (count === 0) return { level: "Beginner", emoji: "🌱", color: "from-gray-500 to-gray-600" };
-    if (count < 5) return { level: "Starter", emoji: "⭐", color: "from-blue-500 to-blue-600" };
-    if (count < 10) return { level: "Achiever", emoji: "�", color: "from-green-500 to-green-600" };
-    if (count < 20) return { level: "Expert", emoji: "�", color: "from-yellow-500 to-orange-500" };
-    return { level: "Master", emoji: "👑", color: "from-purple-500 to-pink-500" };
+    if (count < 10)
+      return {
+        level: "Beginner",
+        emoji: "🌱",
+        color: "from-gray-500 to-gray-600",
+      };
+    if (count < 25)
+      return {
+        level: "Starter",
+        emoji: "⭐",
+        color: "from-blue-500 to-blue-600",
+      };
+    if (count < 50)
+      return {
+        level: "Achiever",
+        emoji: "🏅",
+        color: "from-green-500 to-green-600",
+      };
+    if (count < 100)
+      return {
+        level: "Expert",
+        emoji: "🏆",
+        color: "from-yellow-500 to-orange-500",
+      };
+    return {
+      level: "Master",
+      emoji: "👑",
+      color: "from-purple-500 to-pink-500",
+    };
   };
 
   const achievement = getAchievementLevel(totalCompleted);
@@ -82,33 +114,32 @@ export default function Profile({ completedtasksdata = [] }) {
   // Country flag emoji (simplified)
   const getCountryFlag = (country) => {
     const flags = {
-      "India": "🇮🇳",
-      "Russia": "🇷🇺",
-      "USA": "🇺🇸",
-      "UK": "🇬🇧",
-      "Canada": "🇨🇦",
-      "Australia": "🇦🇺",
-      "Germany": "🇩🇪",
-      "France": "🇫🇷",
-      "Japan": "🇯🇵",
-      "China": "🇨🇳",
-      "Brazil": "🇧🇷",
-      "Italy": "🇮🇹",
-      "Spain": "🇪🇸",
+      India: "🇮🇳",
+      Russia: "🇷🇺",
+      USA: "🇺🇸",
+      UK: "🇬🇧",
+      Canada: "🇨🇦",
+      Australia: "🇦🇺",
+      Germany: "🇩🇪",
+      France: "🇫🇷",
+      Japan: "🇯🇵",
+      China: "🇨🇳",
+      Brazil: "🇧🇷",
+      Italy: "🇮🇹",
+      Spain: "🇪🇸",
       "South Korea": "🇰🇷",
       "South Africa": "🇿🇦",
-      "Mexico": "🇲🇽",
-      "Argentina": "🇦🇷",
-      "Turkey": "🇹🇷",
-      "Indonesia": "🇮🇩",
-      "Bhutan": "🇧🇹",
-      "Nepal": "🇳🇵",
-      "Singapore": "🇸🇬",
-      "UAE": "🇦🇪"
+      Mexico: "🇲🇽",
+      Argentina: "🇦🇷",
+      Turkey: "🇹🇷",
+      Indonesia: "🇮🇩",
+      Bhutan: "🇧🇹",
+      Nepal: "🇳🇵",
+      Singapore: "🇸🇬",
+      UAE: "🇦🇪",
     };
     return flags[country] || "🌍";
   };
-
 
   if (Object.keys(userdata).length !== 0) {
     return (
@@ -133,7 +164,7 @@ export default function Profile({ completedtasksdata = [] }) {
                   animationDelay: `${Math.random() * 2}s`,
                 }}
               >
-                {['🎉', '🎊', '✨', '🌟', '💫'][Math.floor(Math.random() * 5)]}
+                {["🎉", "🎊", "✨", "🌟", "💫"][Math.floor(Math.random() * 5)]}
               </div>
             ))}
           </div>
@@ -142,14 +173,19 @@ export default function Profile({ completedtasksdata = [] }) {
         <div className="relative z-10 pt-10">
           <header className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl text-white font-bold mb-4 animate-slide-up">
-              PROF<span className="text-5xl md:text-7xl text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text">𝓲</span>LE
+              PROF
+              <span className="text-5xl md:text-7xl text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text">
+                𝓲
+              </span>
+              LE
             </h1>
             <p className="text-xl text-purple-200 animate-fade-in animation-delay-200">
               {getGreeting()}! Welcome back, {userdata.firstname}! 👋
             </p>
             {totalCompleted > 0 && (
               <p className="text-lg text-green-300 animate-fade-in animation-delay-300 mt-2">
-                🎉 You've completed {totalCompleted} task{totalCompleted !== 1 ? 's' : ''}! Amazing work!
+                🎉 You've completed {totalCompleted} task
+                {totalCompleted !== 1 ? "s" : ""}! Amazing work!
               </p>
             )}
           </header>
@@ -165,18 +201,18 @@ export default function Profile({ completedtasksdata = [] }) {
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Profile Avatar Section */}
                 <div className="text-center">
-                  <div 
+                  <div
                     className="w-32 h-32 mx-auto mb-6 bg-linear-to-br from-pink-400 to-purple-600 rounded-full flex items-center justify-center text-6xl shadow-2xl transform hover:scale-110 transition-all duration-300 cursor-pointer"
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
                   >
-                    {isHovering ? '😊' : getAgeEmoji(userdata.age)}
+                    {isHovering ? "😊" : getAgeEmoji(userdata.age)}
                   </div>
                   <div className="text-2xl font-bold text-white mb-2">
                     {userdata.firstname} {userdata.lastname}
                   </div>
                   <div className="text-purple-200 text-lg">
-                    Task Master 🏆
+                    {achievement.level} {achievement.emoji}
                   </div>
                 </div>
 
@@ -188,7 +224,9 @@ export default function Profile({ completedtasksdata = [] }) {
                         👤
                       </div>
                       <div>
-                        <label className="text-purple-200 text-sm font-medium">Full Name</label>
+                        <label className="text-purple-200 text-sm font-medium">
+                          Full Name
+                        </label>
                         <div className="text-white text-xl font-semibold">
                           {userdata.firstname} {userdata.lastname}
                         </div>
@@ -202,7 +240,9 @@ export default function Profile({ completedtasksdata = [] }) {
                         {getAgeEmoji(userdata.age)}
                       </div>
                       <div>
-                        <label className="text-purple-200 text-sm font-medium">Age</label>
+                        <label className="text-purple-200 text-sm font-medium">
+                          Age
+                        </label>
                         <div className="text-white text-xl font-semibold">
                           {userdata.age} years old
                         </div>
@@ -216,7 +256,9 @@ export default function Profile({ completedtasksdata = [] }) {
                         {getCountryFlag(userdata.country)}
                       </div>
                       <div>
-                        <label className="text-purple-200 text-sm font-medium">Country</label>
+                        <label className="text-purple-200 text-sm font-medium">
+                          Country
+                        </label>
                         <div className="text-white text-xl font-semibold">
                           {userdata.country}
                         </div>
@@ -228,24 +270,34 @@ export default function Profile({ completedtasksdata = [] }) {
 
               {/* Achievement Stats Section */}
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className={`bg-gradient-to-r ${achievement.color} bg-opacity-20 rounded-2xl p-4 text-center border border-white/20`}>
+                <div
+                  className={`bg-gradient-to-r ${achievement.color} bg-opacity-20 rounded-2xl p-4 text-center border border-white/20`}
+                >
                   <div className="text-3xl mb-2">{achievement.emoji}</div>
-                  <div className="text-white font-semibold">{achievement.level}</div>
+                  <div className="text-white font-semibold">
+                    {achievement.level}
+                  </div>
                   <div className="text-purple-200 text-sm">Current Rank</div>
                 </div>
                 <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl p-4 text-center border border-green-300/20">
                   <div className="text-3xl mb-2">🎯</div>
-                  <div className="text-white font-semibold">{totalCompleted}</div>
+                  <div className="text-white font-semibold">
+                    {totalCompleted}
+                  </div>
                   <div className="text-green-200 text-sm">Tasks Completed</div>
                 </div>
                 <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-2xl p-4 text-center border border-blue-300/20">
                   <div className="text-3xl mb-2">⚡</div>
-                  <div className="text-white font-semibold">{mediumCompleted + hardCompleted}</div>
+                  <div className="text-white font-semibold">
+                    {mediumCompleted + hardCompleted}
+                  </div>
                   <div className="text-blue-200 text-sm">Challenging Tasks</div>
                 </div>
                 <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-2xl p-4 text-center border border-orange-300/20">
                   <div className="text-3xl mb-2">🔥</div>
-                  <div className="text-white font-semibold">{hardCompleted}</div>
+                  <div className="text-white font-semibold">
+                    {hardCompleted}
+                  </div>
                   <div className="text-orange-200 text-sm">Hard Tasks</div>
                 </div>
               </div>
@@ -260,28 +312,42 @@ export default function Profile({ completedtasksdata = [] }) {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div className="bg-green-500/20 rounded-xl p-3 border border-green-300/20">
                       <div className="text-2xl mb-1">🌟</div>
-                      <div className="text-white font-bold">{easyCompleted}</div>
+                      <div className="text-white font-bold">
+                        {easyCompleted}
+                      </div>
                       <div className="text-green-200 text-sm">Easy</div>
                     </div>
                     <div className="bg-yellow-500/20 rounded-xl p-3 border border-yellow-300/20">
                       <div className="text-2xl mb-1">⚡</div>
-                      <div className="text-white font-bold">{mediumCompleted}</div>
+                      <div className="text-white font-bold">
+                        {mediumCompleted}
+                      </div>
                       <div className="text-yellow-200 text-sm">Medium</div>
                     </div>
                     <div className="bg-red-500/20 rounded-xl p-3 border border-red-300/20">
                       <div className="text-2xl mb-1">🔥</div>
-                      <div className="text-white font-bold">{hardCompleted}</div>
+                      <div className="text-white font-bold">
+                        {hardCompleted}
+                      </div>
                       <div className="text-red-200 text-sm">Hard</div>
                     </div>
                   </div>
-                  
+
                   {/* Progress to next level */}
                   {totalCompleted < 20 && (
                     <div className="mt-4 p-3 bg-purple-500/10 rounded-xl border border-purple-300/20">
                       <div className="text-purple-200 text-sm text-center">
-                        {totalCompleted < 5 && `Complete ${5 - totalCompleted} more tasks to become a ⭐ Starter!`}
-                        {totalCompleted >= 5 && totalCompleted < 10 && `Complete ${10 - totalCompleted} more tasks to become a 🏅 Achiever!`}
-                        {totalCompleted >= 10 && totalCompleted < 20 && `Complete ${20 - totalCompleted} more tasks to become an 🏆 Expert!`}
+                        {totalCompleted < 10 &&
+                          `Complete ${10 - totalCompleted} more tasks to become a ⭐ Starter!`}
+                        {totalCompleted >= 10 &&
+                          totalCompleted < 25 &&
+                          `Complete ${25 - totalCompleted} more tasks to become a 🏅 Achiever!`}
+                        {totalCompleted >= 25 &&
+                          totalCompleted < 50 &&
+                          `Complete ${50 - totalCompleted} more tasks to become an 🏆 Expert!`}
+                        {totalCompleted >= 50 &&
+                          totalCompleted < 100 &&
+                          `Complete ${100 - totalCompleted} more tasks to become an 👑 Master!`}
                       </div>
                     </div>
                   )}
@@ -292,7 +358,9 @@ export default function Profile({ completedtasksdata = [] }) {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-2xl p-4 text-center border border-pink-300/20">
                   <div className="text-3xl mb-2">✅</div>
-                  <div className="text-white font-semibold">Profile Complete</div>
+                  <div className="text-white font-semibold">
+                    Profile Complete
+                  </div>
                   <div className="text-purple-200 text-sm">100%</div>
                 </div>
                 <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-2xl p-4 text-center border border-blue-300/20">
@@ -300,10 +368,14 @@ export default function Profile({ completedtasksdata = [] }) {
                   <div className="text-white font-semibold">Status</div>
                   <div className="text-blue-200 text-sm">Active User</div>
                 </div>
-                <div className={`bg-gradient-to-r ${achievement.color} bg-opacity-20 rounded-2xl p-4 text-center border border-white/20`}>
+                <div
+                  className={`bg-gradient-to-r ${achievement.color} bg-opacity-20 rounded-2xl p-4 text-center border border-white/20`}
+                >
                   <div className="text-3xl mb-2">{achievement.emoji}</div>
                   <div className="text-white font-semibold">Level</div>
-                  <div className="text-green-200 text-sm">{achievement.level}</div>
+                  <div className="text-green-200 text-sm">
+                    {achievement.level}
+                  </div>
                 </div>
               </div>
 
@@ -347,7 +419,11 @@ export default function Profile({ completedtasksdata = [] }) {
                 animationDelay: `${Math.random() * 2}s`,
               }}
             >
-              {['🎉', '🎊', '✨', '🌟', '💫', '🎯'][Math.floor(Math.random() * 6)]}
+              {
+                ["🎉", "🎊", "✨", "🌟", "💫", "🎯"][
+                  Math.floor(Math.random() * 6)
+                ]
+              }
             </div>
           ))}
         </div>
@@ -356,7 +432,11 @@ export default function Profile({ completedtasksdata = [] }) {
       <div className="relative z-10 pt-10">
         <header className="text-center mb-8">
           <h1 className="text-4xl md:text-6xl text-white font-bold mb-4 animate-slide-up">
-            PROF<span className="text-5xl md:text-7xl text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text">𝓲</span>LE
+            PROF
+            <span className="text-5xl md:text-7xl text-transparent bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text">
+              𝓲
+            </span>
+            LE
           </h1>
           <p className="text-xl text-purple-200 animate-fade-in animation-delay-200">
             {getGreeting()}! Let's create your profile! 🚀
@@ -405,7 +485,9 @@ export default function Profile({ completedtasksdata = [] }) {
 
               <div className="group">
                 <label className="block text-purple-200 text-sm font-medium mb-2 flex items-center gap-2">
-                  <span className="text-lg">{getAgeEmoji(profiledata.age)}</span>
+                  <span className="text-lg">
+                    {getAgeEmoji(profiledata.age)}
+                  </span>
                   Age
                 </label>
                 <input
@@ -420,7 +502,9 @@ export default function Profile({ completedtasksdata = [] }) {
 
               <div className="group">
                 <label className="block text-purple-200 text-sm font-medium mb-2 flex items-center gap-2">
-                  <span className="text-lg">{getCountryFlag(profiledata.country)}</span>
+                  <span className="text-lg">
+                    {getCountryFlag(profiledata.country)}
+                  </span>
                   Country
                 </label>
                 <select
@@ -429,29 +513,75 @@ export default function Profile({ completedtasksdata = [] }) {
                   value={profiledata.country}
                   onChange={handlechange}
                 >
-                  <option value="India" className="bg-gray-800">🇮🇳 India</option>
-                  <option value="Russia" className="bg-gray-800">🇷🇺 Russia</option>
-                  <option value="USA" className="bg-gray-800">🇺🇸 USA</option>
-                  <option value="UK" className="bg-gray-800">🇬🇧 UK</option>
-                  <option value="Canada" className="bg-gray-800">🇨🇦 Canada</option>
-                  <option value="Australia" className="bg-gray-800">🇦🇺 Australia</option>
-                  <option value="Germany" className="bg-gray-800">🇩🇪 Germany</option>
-                  <option value="France" className="bg-gray-800">🇫🇷 France</option>
-                  <option value="Japan" className="bg-gray-800">🇯🇵 Japan</option>
-                  <option value="China" className="bg-gray-800">🇨🇳 China</option>
-                  <option value="Brazil" className="bg-gray-800">🇧🇷 Brazil</option>
-                  <option value="Italy" className="bg-gray-800">🇮🇹 Italy</option>
-                  <option value="Spain" className="bg-gray-800">🇪🇸 Spain</option>
-                  <option value="South Korea" className="bg-gray-800">🇰🇷 South Korea</option>
-                  <option value="South Africa" className="bg-gray-800">🇿🇦 South Africa</option>
-                  <option value="Mexico" className="bg-gray-800">🇲🇽 Mexico</option>
-                  <option value="Argentina" className="bg-gray-800">🇦🇷 Argentina</option>
-                  <option value="Turkey" className="bg-gray-800">🇹🇷 Turkey</option>
-                  <option value="Indonesia" className="bg-gray-800">🇮🇩 Indonesia</option>
-                  <option value="Bhutan" className="bg-gray-800">🇧🇹 Bhutan</option>
-                  <option value="Nepal" className="bg-gray-800">🇳🇵 Nepal</option>
-                  <option value="Singapore" className="bg-gray-800">🇸🇬 Singapore</option>
-                  <option value="UAE" className="bg-gray-800">🇦🇪 UAE</option>
+                  <option value="India" className="bg-gray-800">
+                    🇮🇳 India
+                  </option>
+                  <option value="Russia" className="bg-gray-800">
+                    🇷🇺 Russia
+                  </option>
+                  <option value="USA" className="bg-gray-800">
+                    🇺🇸 USA
+                  </option>
+                  <option value="UK" className="bg-gray-800">
+                    🇬🇧 UK
+                  </option>
+                  <option value="Canada" className="bg-gray-800">
+                    🇨🇦 Canada
+                  </option>
+                  <option value="Australia" className="bg-gray-800">
+                    🇦🇺 Australia
+                  </option>
+                  <option value="Germany" className="bg-gray-800">
+                    🇩🇪 Germany
+                  </option>
+                  <option value="France" className="bg-gray-800">
+                    🇫🇷 France
+                  </option>
+                  <option value="Japan" className="bg-gray-800">
+                    🇯🇵 Japan
+                  </option>
+                  <option value="China" className="bg-gray-800">
+                    🇨🇳 China
+                  </option>
+                  <option value="Brazil" className="bg-gray-800">
+                    🇧🇷 Brazil
+                  </option>
+                  <option value="Italy" className="bg-gray-800">
+                    🇮🇹 Italy
+                  </option>
+                  <option value="Spain" className="bg-gray-800">
+                    🇪🇸 Spain
+                  </option>
+                  <option value="South Korea" className="bg-gray-800">
+                    🇰🇷 South Korea
+                  </option>
+                  <option value="South Africa" className="bg-gray-800">
+                    🇿🇦 South Africa
+                  </option>
+                  <option value="Mexico" className="bg-gray-800">
+                    🇲🇽 Mexico
+                  </option>
+                  <option value="Argentina" className="bg-gray-800">
+                    🇦🇷 Argentina
+                  </option>
+                  <option value="Turkey" className="bg-gray-800">
+                    🇹🇷 Turkey
+                  </option>
+                  <option value="Indonesia" className="bg-gray-800">
+                    🇮🇩 Indonesia
+                  </option>
+                  <option value="Bhutan" className="bg-gray-800">
+                    🇧🇹 Bhutan
+                  </option>
+                  <option value="Nepal" className="bg-gray-800">
+                    🇳🇵 Nepal
+                  </option>
+                  <option value="Singapore" className="bg-gray-800">
+                    🇸🇬 Singapore
+                  </option>
+                  <option value="UAE" className="bg-gray-800">
+                    🇦🇪 UAE
+                  </option>
                 </select>
               </div>
 
@@ -463,9 +593,22 @@ export default function Profile({ completedtasksdata = [] }) {
                     Preview
                   </h3>
                   <div className="text-purple-200">
-                    Hello, <span className="text-white font-bold">{profiledata.firstname} {profiledata.lastname}</span>!
-                    {profiledata.age && <span> You're {profiledata.age} years old</span>}
-                    {profiledata.country && <span> from {getCountryFlag(profiledata.country)} {profiledata.country}</span>}.
+                    Hello,{" "}
+                    <span className="text-white font-bold">
+                      {profiledata.firstname} {profiledata.lastname}
+                    </span>
+                    !
+                    {profiledata.age && (
+                      <span> You're {profiledata.age} years old</span>
+                    )}
+                    {profiledata.country && (
+                      <span>
+                        {" "}
+                        from {getCountryFlag(profiledata.country)}{" "}
+                        {profiledata.country}
+                      </span>
+                    )}
+                    .
                   </div>
                 </div>
               )}

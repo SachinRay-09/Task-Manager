@@ -1,4 +1,5 @@
 export default function Archive({ completedtasksdata }) {
+  completedtasksdata = JSON.parse(localStorage.getItem("completedtasks")) || [];
   const difficultyColor = (d) =>
     d === "hard"
       ? "bg-gradient-to-r from-red-500 to-red-600"
